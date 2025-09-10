@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chocolate Collections Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4b2e2e, #7b3f00, #b5651d);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      text-align: center;
+      color: #ffcc99;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+
+    .search-bar {
+      margin: 20px auto;
+      max-width: 500px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .search-bar button {
+      padding: 10px 16px;
+      border: none;
+      background: #ff9933;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .search-bar button:hover {
+      background: #e67e00;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: #fff;
+      color: #333;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      color: #4b2e2e;
+    }
+
+    .card-content p {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      background: rgba(0,0,0,0.6);
+      color: #ffcc99;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍫 Chocolate Collections Dashboard</h1>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search chocolates or collections...">
+    <button onclick="searchChocolates()">Search</button>
+  </div>
+
+  <div class="grid" id="chocoGrid">
+    <!-- Cards injected with JS -->
+  </div>
+
+  <footer>
+    &copy; 2025 Chocolate Dashboard | Made with HTML, CSS, JS
+  </footer>
+
+  <script>
+    const chocolates = [
+      {
+        name: "Milk Chocolate",
+        collection: "Classic Creamy Collection",
+        image: "https://upload.wikimedia.org/wikipedia/commons/7/70/Milk_chocolate_bar.jpg"
+      },
+      {
+        name: "Dark Chocolate",
+        collection: "Premium Bitter Collection",
+        image: "https://upload.wikimedia.org/wikipedia/commons/7/70/Dark_chocolate_bar.jpg"
+      },
+      {
+        name: "White Chocolate",
+        collection: "Sweet Vanilla Collection",
+        image: "https://upload.wikimedia.org/wikipedia/commons/5/5b/White_chocolate.jpg"
+      },
+      {
+        name: "Hazelnut Chocolate",
+        collection: "Nutty Delight Collection",
+        image: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Chocolate_with_hazelnuts.jpg"
+      },
+      {
+        name: "Caramel Chocolate",
+        collection: "Golden Caramel Bliss",
+        image: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Chocolate_caramel.jpg"
+      },
+      {
+        name: "Strawberry Chocolate",
+        collection: "Fruity Fusion Collection",
+        image: "https://upload.wikimedia.org/wikipedia/commons/4/40/Strawberry_chocolate.jpg"
+      }
+    ];
+
+    const grid = document.getElementById("chocoGrid");
+
+    function displayChocolates(list) {
+      grid.innerHTML = "";
+      list.forEach(choco => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${choco.image}" alt="${choco.name}">
+          <div class="card-content">
+            <h3>${choco.name}</h3>
+            <p>Collection: ${choco.collection}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function searchChocolates() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = chocolates.filter(c => 
+        c.name.toLowerCase().includes(query) ||
+        c.collection.toLowerCase().includes(query)
+      );
+      displayChocolates(filtered);
+    }
+
+    // Initial display
+    displayChocolates(chocolates);
+  </script>
+</body>
+</html>
